@@ -5,7 +5,6 @@ import lombok.ToString;
 
 /**
  * @description 我的课程查询条件
- * @date 2022/10/6 9:42
  */
 @Data
 @ToString

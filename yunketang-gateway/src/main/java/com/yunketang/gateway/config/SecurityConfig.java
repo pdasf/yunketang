@@ -8,7 +8,6 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 
 /**
  * @description 安全配置类
- * @date 2022/9/27 12:07
  */
 @EnableWebFluxSecurity
 @Configuration

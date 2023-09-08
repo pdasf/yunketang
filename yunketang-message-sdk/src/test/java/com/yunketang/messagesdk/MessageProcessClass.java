@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 /**
  * @description 消息处理测试类，继承MessageProcessAbstract
- * @date 2022/9/21 21:44
  */
 @Slf4j
 @Component

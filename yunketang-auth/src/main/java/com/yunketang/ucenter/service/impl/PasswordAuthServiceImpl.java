@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 /**
  * @description 账号密码认证
- * @date 2022/10/20 14:49
  */
 @Slf4j
 @Service("password_authservice")

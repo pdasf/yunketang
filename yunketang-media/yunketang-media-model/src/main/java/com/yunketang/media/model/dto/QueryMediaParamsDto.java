@@ -6,7 +6,6 @@ import lombok.ToString;
 
 /**
  * @description 媒资文件查询请求模型类
- * @date 2022/9/10 8:53
  */
 @Data
 @ToString

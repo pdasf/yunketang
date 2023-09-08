@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 /**
  * @description TODO
- * @date 2023/2/22 20:14
  */
 @SpringBootTest
 public class FeignClientTest {

@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 
 /**
  * @description TODO
- * @date 2022/9/21 21:51
  */
 @SpringBootTest
 public class MessageProcessClassTest {

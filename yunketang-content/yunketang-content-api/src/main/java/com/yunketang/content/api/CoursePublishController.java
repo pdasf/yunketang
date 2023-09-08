@@ -4,6 +4,7 @@ import com.yunketang.content.model.dto.CoursePreviewDto;
 import com.yunketang.content.model.po.CoursePublish;
 import com.yunketang.content.service.CoursePublishService;
 import com.yunketang.content.util.SecurityUtil;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
 @RestController
+@Api(value = "课程发布相关接口", tags = "课程发布相关接口")
 public class CoursePublishController {
     @Autowired
     private CoursePublishService coursePublishService;
@@ -26,6 +28,7 @@ public class CoursePublishController {
      * @param courseId 课程id
      * @return
      */
+    @ApiOperation("课程预览接口")
     @GetMapping("/coursepreview/{courseId}")
     public ModelAndView preview(@PathVariable("courseId") Long courseId) {
         CoursePreviewDto coursePreviewInfo = coursePublishService.getCoursePreviewInfo(courseId);
@@ -40,6 +43,7 @@ public class CoursePublishController {
      *
      * @param courseId 课程id
      */
+    @ApiOperation("提交课程审核接口")
     @PostMapping("/courseaudit/commit/{courseId}")
     public void commitAudit(@PathVariable Long courseId) {
         SecurityUtil.User user = SecurityUtil.getUser();
@@ -55,6 +59,7 @@ public class CoursePublishController {
      *
      * @param courseId 课程id
      */
+    @ApiOperation("课程发布接口")
     @PostMapping("/coursepublish/{courseId}")
     public void coursePublish(@PathVariable Long courseId) {
         SecurityUtil.User user = SecurityUtil.getUser();
