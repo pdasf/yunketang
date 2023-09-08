@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>yunketang-parent</artifactId>
+        <groupId>com.yunketang</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../yunketang-parent</relativePath>
+    </parent>
+    <artifactId>yunketang-media</artifactId>
+    <name>yunketang-media</name>
+    <description>yunketang-media</description>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>yunketang-media-api</module>
+        <module>yunketang-media-service</module>
+        <module>yunketang-media-model</module>
+    </modules>
+</project>
