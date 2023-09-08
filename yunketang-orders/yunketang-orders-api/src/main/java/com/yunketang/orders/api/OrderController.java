@@ -89,6 +89,7 @@ public class OrderController {
         return orderService.queryPayResult(payNo);
     }
 
+    @ApiOperation("支付结果通知")
     @PostMapping("/paynotify")
     public void paynotify(HttpServletRequest request, HttpServletResponse response) throws IOException, AlipayApiException {
         Map<String, String> params = new HashMap<>();
