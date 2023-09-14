@@ -1,13 +1,13 @@
 package com.yunketang.media.service.jobhandler;
 
+import com.xxl.job.core.context.XxlJobHelper;
+import com.xxl.job.core.handler.annotation.XxlJob;
 import com.yunketang.base.exception.YunketangException;
 import com.yunketang.base.utils.Mp4VideoUtil;
 import com.yunketang.media.mapper.MediaProcessMapper;
 import com.yunketang.media.model.po.MediaProcess;
 import com.yunketang.media.service.MediaFileProcessService;
 import com.yunketang.media.service.MediaFileService;
-import com.xxl.job.core.context.XxlJobHelper;
-import com.xxl.job.core.handler.annotation.XxlJob;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

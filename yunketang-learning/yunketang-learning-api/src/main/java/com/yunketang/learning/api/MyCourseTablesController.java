@@ -2,9 +2,9 @@ package com.yunketang.learning.api;
 
 import com.yunketang.base.exception.YunketangException;
 import com.yunketang.base.model.PageResult;
-import com.yunketang.learning.model.dto.MyCourseTableParams;
 import com.yunketang.learning.model.dto.ChooseCourseDto;
 import com.yunketang.learning.model.dto.CourseTablesDto;
+import com.yunketang.learning.model.dto.MyCourseTableParams;
 import com.yunketang.learning.model.po.CourseTables;
 import com.yunketang.learning.service.MyCourseTablesService;
 import com.yunketang.learning.util.SecurityUtil;

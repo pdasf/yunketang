@@ -2,9 +2,9 @@ package com.yunketang.learning.service;
 
 import com.yunketang.base.model.PageResult;
 import com.yunketang.content.model.po.CoursePublish;
-import com.yunketang.learning.model.dto.MyCourseTableParams;
 import com.yunketang.learning.model.dto.ChooseCourseDto;
 import com.yunketang.learning.model.dto.CourseTablesDto;
+import com.yunketang.learning.model.dto.MyCourseTableParams;
 import com.yunketang.learning.model.po.ChooseCourse;
 import com.yunketang.learning.model.po.CourseTables;
 

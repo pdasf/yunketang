@@ -37,12 +37,13 @@ public class LocalDateTimeConfig {
         return new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
-    //long转string避免精度损失
+    // 自定义ObjectMapper覆盖Spring默认序列化转换器
     @Bean
     public ObjectMapper jacksonObjectMapper(Jackson2ObjectMapperBuilder builder) {
         ObjectMapper objectMapper = builder.createXmlMapper(false).build();
         //忽略value为null 时 key的输出
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        //long转string避免精度损失
         SimpleModule module = new SimpleModule();
         module.addSerializer(Long.class, ToStringSerializer.instance);
         module.addSerializer(Long.TYPE, ToStringSerializer.instance);
@@ -51,7 +52,7 @@ public class LocalDateTimeConfig {
     }
 
 
-    // 配置
+    // 配置 Jackson2ObjectMapperBuilder 的 LocalDateTime序列化
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {
         return builder -> {
