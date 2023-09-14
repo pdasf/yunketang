@@ -34,13 +34,13 @@ public class CoursePublishTask extends MessageProcessAbstract {
         long courseId = Integer.parseInt(businessKey1);
 
         // 一阶段：将课程信息静态页面上传至MinIO
-        generateCourseHtml(mqMessage,courseId);
+        generateCourseHtml(mqMessage, courseId);
 
         // 二阶段：存储到Redis
-        saveCourseCache(mqMessage,courseId);
+        saveCourseCache(mqMessage, courseId);
 
         // 三阶段：存储到ElasticSearch
-        saveCourseIndex(mqMessage,courseId);
+        saveCourseIndex(mqMessage, courseId);
 
         // 三阶段都成功，返回true
         return true;
@@ -70,8 +70,8 @@ public class CoursePublishTask extends MessageProcessAbstract {
         mqMessageService.completedStageOne(id);
     }
 
-    public void saveCourseCache(MqMessage mqMessage,long courseId){
-        log.debug("将课程信息缓存至 redis,课程 id:{}",courseId);
+    public void saveCourseCache(MqMessage mqMessage, long courseId) {
+        log.debug("将课程信息缓存至 redis,课程 id:{}", courseId);
         try {
             TimeUnit.SECONDS.sleep(2);
         } catch (InterruptedException e) {

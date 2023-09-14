@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
  */
 public class CommonUtil {
 
+    // 隐藏用户手机号码中间部分
     public static String hiddenMobile(String mobile) {
         if (StringUtils.isBlank(mobile)) {
             return "";
@@ -27,12 +28,7 @@ public class CommonUtil {
         return mobile.replaceAll("(\\d{3})\\d{4}(\\d{4})", "$1****$2");
     }
 
-
-    /**
-     * @param s
-     * @param isFen
-     * @return
-     */
+    // String -> BigDecimal
     public static BigDecimal strToBigDecimal(String s, Boolean isFen) {
         if (StringUtils.isBlank(s)) {
             return null;
@@ -78,17 +74,10 @@ public class CommonUtil {
         return totalSeconds;
     }
 
-    /**
-     * 将下划线映射到骆驼命名使用的正则表达式, 预编译正则用于提高效率
-     */
+    // 将下划线映射到骆驼命名使用的正则表达式, 预编译正则用于提高效率
     private static Pattern patternForUTC = Pattern.compile("_([a-z]){1}");
 
-    /**
-     * 将下划线映射到骆驼命名
-     *
-     * @param str
-     * @return
-     */
+    // 将下划线映射到骆驼命名
     public static String mapUnderscoreToCamelCase(String str) {
         // 先转成全小写
         str = str.toLowerCase();
@@ -99,12 +88,7 @@ public class CommonUtil {
         return str;
     }
 
-    /**
-     * 将骆驼命名映射到下划线, 必须是标准的驼峰命名, 否则会出现奇怪的结果
-     *
-     * @param str
-     * @return
-     */
+    // 将骆驼命名映射到下划线, 必须是标准的驼峰命名, 否则会出现奇怪的结果
     public static String mapCamelCaseToUnderscore(String str) {
         return str.replaceAll("([A-Z]){1}", "_$1").toUpperCase();
     }

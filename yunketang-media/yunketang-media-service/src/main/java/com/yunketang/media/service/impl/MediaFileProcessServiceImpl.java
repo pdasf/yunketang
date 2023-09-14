@@ -32,7 +32,7 @@ public class MediaFileProcessServiceImpl implements MediaFileProcessService {
     @Override
     public boolean startTask(long id) {
         int result = mediaProcessMapper.startTask(id);
-        return result<=0?false:true;
+        return result <= 0 ? false : true;
     }
 
     @Transactional
