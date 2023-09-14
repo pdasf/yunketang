@@ -40,6 +40,7 @@ public class CheckCodeController {
             @ApiImplicitParam(name = "key", value = "验证key", required = true, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "code", value = "验证码", required = true, dataType = "String", paramType = "query")
     })
+
     @PostMapping(value = "/verify")
     public Boolean verify(String key, String code) {
         Boolean isSuccess = picCheckCodeService.verify(key, code);
