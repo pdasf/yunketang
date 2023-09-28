@@ -83,11 +83,11 @@ public class CoursePublishTask extends MessageProcessAbstract {
         log.debug("正在保存课程信息索引，课程id:{}", courseId);
         // 1. 获取消息id
         Long id = mqMessage.getId();
-        // 2. 获取小任务阶段状态
+        // 2. 获取任务阶段状态
         MqMessageService mqMessageService = this.getMqMessageService();
+        // 3. 消息幂等性处理
         int stageTwo = mqMessageService.getStageTwo(id);
-        // 3. 当前小任务完成，无需再次处理
-        if (stageTwo == 1) {
+        if (stageTwo > 0) {
             log.debug("当前阶段为创建课程索引任务，已完成，无需再次处理，任务信息：{}", mqMessage);
             return;
         }

@@ -50,13 +50,13 @@ public class CourseSearchServiceImpl implements CourseSearchService {
     @Override
     public SearchPageResultDto<CourseIndex> queryCoursePubIndex(PageParams pageParams, SearchCourseParamDto courseSearchParam) {
         log.debug("ES条件查询并响应分页结果");
-        // 1. 准备Request对象
+        // 1. 准备Request对象,选择索引
         SearchRequest request = new SearchRequest(courseIndexName);
         // 2. 组织DSL参数，这里使用布尔查询
-        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
-        String[] sourceFieldsArray = sourceFields.split(",");
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        // sourceFieldsArray指定要返回的字段，new String[]{}指定不返回的字段
+        //source 源字段过虑，sourceFieldsArray指定要返回的字段
+        String[] sourceFieldsArray = sourceFields.split(",");
         searchSourceBuilder.fetchSource(sourceFieldsArray, new String[]{});
         // 3. 分页
         Long pageNo = pageParams.getPageNo();
@@ -72,28 +72,28 @@ public class CourseSearchServiceImpl implements CourseSearchService {
         // 3.2.1 匹配关键字
         if (StringUtils.isNotEmpty(courseSearchParam.getKeywords())) {
             String keywords = courseSearchParam.getKeywords();
-            boolQuery.must(QueryBuilders
+            boolQueryBuilder.must(QueryBuilders
                     .multiMatchQuery(keywords, "name", "description")
                     .minimumShouldMatch("70%")
                     .field("name", 10));
         }
         // 3.2.2 匹配大分类
         if (StringUtils.isNotEmpty(courseSearchParam.getMt())) {
-            boolQuery.filter(QueryBuilders
+            boolQueryBuilder.filter(QueryBuilders
                     .termQuery("mtName", courseSearchParam.getMt()));
         }
         // 3.2.3 匹配小分类
         if (StringUtils.isNotEmpty(courseSearchParam.getSt())) {
-            boolQuery.filter(QueryBuilders
+            boolQueryBuilder.filter(QueryBuilders
                     .termQuery("stName", courseSearchParam.getSt()));
         }
         // 3.2.4 匹配难度
         if (StringUtils.isNotEmpty(courseSearchParam.getGrade())) {
-            boolQuery.filter(QueryBuilders
+            boolQueryBuilder.filter(QueryBuilders
                     .termQuery("grade", courseSearchParam.getGrade()));
         }
         // 4. 布尔查询
-        searchSourceBuilder.query(boolQuery);
+        searchSourceBuilder.query(boolQueryBuilder);
         // 高亮
         searchSourceBuilder.highlighter(new HighlightBuilder()
                 .field("name")
@@ -103,7 +103,7 @@ public class CourseSearchServiceImpl implements CourseSearchService {
         // 聚合设置
         buildAggregation(request);
         // 5. 发送请求，获取响应结果
-        SearchResponse response = null;
+        SearchResponse response;
         try {
             response = client.search(request, RequestOptions.DEFAULT);
         } catch (IOException e) {
