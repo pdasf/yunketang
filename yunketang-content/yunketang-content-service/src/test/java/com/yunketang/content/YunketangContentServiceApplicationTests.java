@@ -1,4 +1,4 @@
-package com.yunketang;
+package com.yunketang.content;
 
 import com.yunketang.base.model.PageParams;
 import com.yunketang.base.model.PageResult;
@@ -18,7 +18,7 @@ import java.util.List;
 
 @Slf4j
 @SpringBootTest(classes = ContentServiceApplication.class)
-class YunketangContentServiceApplicationTests {
+public class YunketangContentServiceApplicationTests {
 
     @Resource
     CourseBaseMapper courseBaseMapper;
