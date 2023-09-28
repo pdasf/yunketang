@@ -167,7 +167,6 @@ public class CourseSearchServiceImpl implements CourseSearchService {
 
     /**
      * 根据聚合名称获取聚合结果
-     *
      * @param aggregations 聚合对象
      * @param aggName      聚合名称
      * @return 聚合结果，返回List集合
