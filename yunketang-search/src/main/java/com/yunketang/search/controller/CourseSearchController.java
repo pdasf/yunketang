@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @description 课程搜索接口
+ *  课程搜索接口
  */
 @Api(value = "课程搜索接口", tags = "课程搜索接口")
 @RestController

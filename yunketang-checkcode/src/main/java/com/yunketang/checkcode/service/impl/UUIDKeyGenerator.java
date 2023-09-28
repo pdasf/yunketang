@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 /**
- * @description uuid生成器
+ *  uuid生成器
  */
 @Component("UUIDKeyGenerator")
 public class UUIDKeyGenerator implements CheckCodeService.KeyGenerator {

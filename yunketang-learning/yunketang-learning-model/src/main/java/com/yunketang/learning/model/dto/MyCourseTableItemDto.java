@@ -7,7 +7,7 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 
 /**
- * @description 我的课程查询条件
+ *  课程查询条件
  */
 @Data
 @ToString

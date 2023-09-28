@@ -1,18 +1,13 @@
 package com.yunketang.system.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.yunketang.system.model.po.Dictionary;
 
 import java.util.List;
 
 /**
  * 数据字典 服务类
- * </p>
- *
- * @author itcast
- * @since 2021-10-07
  */
-public interface DictionaryService extends IService<Dictionary> {
+public interface DictionaryService {
 
     /**
      * 查询所有数据字典内容

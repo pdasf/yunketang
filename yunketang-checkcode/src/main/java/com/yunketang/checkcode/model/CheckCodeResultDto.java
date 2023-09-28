@@ -3,7 +3,7 @@ package com.yunketang.checkcode.model;
 import lombok.Data;
 
 /**
- * @description 验证码生成结果类
+ *  验证码生成结果类
  */
 @Data
 public class CheckCodeResultDto {

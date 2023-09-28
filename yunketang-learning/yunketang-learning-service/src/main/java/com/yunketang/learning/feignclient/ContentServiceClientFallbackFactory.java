@@ -6,9 +6,8 @@ import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-/**
- * @description TODO
- */
+import java.util.concurrent.locks.ReentrantLock;
+
 @Slf4j
 @Component
 public class ContentServiceClientFallbackFactory implements FallbackFactory<ContentServiceClient> {
@@ -18,6 +17,7 @@ public class ContentServiceClientFallbackFactory implements FallbackFactory<Cont
 
             @Override
             public CoursePublish getCoursePublish(Long courseId) {
+                ReentrantLock lock = new ReentrantLock();
                 log.error("调用内容管理服务查询课程信息发生熔断:{}", throwable.toString(), throwable);
                 return null;
             }

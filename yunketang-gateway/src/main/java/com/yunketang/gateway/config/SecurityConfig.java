@@ -7,7 +7,7 @@ import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
 /**
- * @description 安全配置类
+ *  安全配置类
  */
 @EnableWebFluxSecurity
 @Configuration

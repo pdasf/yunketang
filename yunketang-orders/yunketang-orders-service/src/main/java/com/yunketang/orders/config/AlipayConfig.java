@@ -1,7 +1,7 @@
 package com.yunketang.orders.config;
 
 /**
- * @description 支付宝配置参数
+ *  支付宝配置参数
  */
 public class AlipayConfig {
     // 商户appid

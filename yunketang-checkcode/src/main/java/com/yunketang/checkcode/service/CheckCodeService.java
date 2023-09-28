@@ -4,28 +4,23 @@ import com.yunketang.checkcode.model.CheckCodeParamsDto;
 import com.yunketang.checkcode.model.CheckCodeResultDto;
 
 /**
- * @description 验证码接口
+ *  验证码接口
  */
 public interface CheckCodeService {
 
     /**
-     * @param checkCodeParamsDto 生成验证码参数
-     * @return com.yunketang.checkcode.model.CheckCodeResultDto 验证码结果
-     * @description 生成验证码
+     * 生成验证码
      */
     CheckCodeResultDto generate(CheckCodeParamsDto checkCodeParamsDto);
 
     /**
-     * @param key
-     * @param code
-     * @return boolean
-     * @description 校验验证码
+     *  校验验证码
      */
     public boolean verify(String key, String code);
 
 
     /**
-     * @description 验证码生成器
+     *  验证码生成器
      */
     public interface CheckCodeGenerator {
         /**
@@ -39,7 +34,7 @@ public interface CheckCodeService {
     }
 
     /**
-     * @description key生成器
+     * key生成器
      */
     public interface KeyGenerator {
 
@@ -53,7 +48,7 @@ public interface CheckCodeService {
 
 
     /**
-     * @description 验证码存储
+     *  验证码存储
      */
     public interface CheckCodeStore {
 

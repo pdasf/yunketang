@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * @description 消息处理测试类，继承MessageProcessAbstract
+ *  消息处理测试类，继承MessageProcessAbstract
  */
 @Slf4j
 @Component

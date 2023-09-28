@@ -13,7 +13,7 @@ import java.util.List;
 
 
 /**
- * @description 全局异常处理器
+ *  全局异常处理器
  */
 @Slf4j
 @RestControllerAdvice

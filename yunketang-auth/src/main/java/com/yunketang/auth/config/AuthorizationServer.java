@@ -15,7 +15,7 @@ import org.springframework.security.oauth2.provider.token.AuthorizationServerTok
 import javax.annotation.Resource;
 
 /**
- * @description 授权服务器配置
+ *  授权服务器配置
  */
 @Configuration
 @EnableAuthorizationServer

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @description 使用本地内存存储验证码，测试用
+ * 使用本地内存存储验证码，测试用
  */
 @Component("MemoryCheckCodeStore")
 public class MemoryCheckCodeStore implements CheckCodeService.CheckCodeStore {

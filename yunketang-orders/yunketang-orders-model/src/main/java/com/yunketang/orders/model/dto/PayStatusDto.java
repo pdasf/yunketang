@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.ToString;
 
 /**
- * @description 支付结果数据, 用于接收支付结果通知处理逻辑
+ *  支付结果数据, 用于接收支付结果通知处理逻辑
  */
 @Data
 @ToString

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @description 用户扩展信息
+ *  用户扩展信息
  */
 @Data
 public class UserExt extends User {

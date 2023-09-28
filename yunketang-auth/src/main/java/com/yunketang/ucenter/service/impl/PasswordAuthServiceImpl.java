@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
- * @description 账号密码认证
+ *  账号密码认证
  */
 @Slf4j
 @Service("password_authservice")

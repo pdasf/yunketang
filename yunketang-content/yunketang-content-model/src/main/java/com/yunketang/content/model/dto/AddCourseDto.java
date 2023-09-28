@@ -9,8 +9,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 /**
- * @version 1.0
- * @description 添加课程dto
+ * 添加课程dto
  */
 @Data
 @ApiModel(value = "AddCourseDto", description = "新增课程基本信息")

@@ -6,9 +6,6 @@ import lombok.ToString;
 
 import java.util.List;
 
-/**
- * @description TODO
- */
 @Data
 @ToString
 public class SearchPageResultDto<T> extends PageResult {

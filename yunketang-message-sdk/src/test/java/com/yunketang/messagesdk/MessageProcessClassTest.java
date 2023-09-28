@@ -6,9 +6,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
 
-/**
- * @description TODO
- */
 @SpringBootTest
 public class MessageProcessClassTest {
 

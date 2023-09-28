@@ -17,7 +17,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
- * @description 图片验证码生成器
+ * 图片验证码生成器
  */
 @Service("PicCheckCodeService")
 public class PicCheckCodeServiceImpl extends AbstractCheckCodeService implements CheckCodeService {

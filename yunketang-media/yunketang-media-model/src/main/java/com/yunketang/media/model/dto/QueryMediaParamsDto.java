@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.ToString;
 
 /**
- * @description 媒资文件查询请求模型类
+ *  媒资文件查询请求模型类
  */
 @Data
 @ToString

@@ -2,7 +2,7 @@ package com.yunketang.base.exception;
 
 
 /**
- * @description 学成在线项目异常类
+ *  学成在线项目异常类
  */
 public class YunketangException extends RuntimeException {
     private String errMessage;

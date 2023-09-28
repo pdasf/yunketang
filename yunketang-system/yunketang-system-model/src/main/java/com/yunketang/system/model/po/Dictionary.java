@@ -2,7 +2,6 @@ package com.yunketang.system.model.po;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -11,7 +10,6 @@ import java.io.Serializable;
  * 数据字典
  */
 @Data
-@TableName("dictionary")
 public class Dictionary implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,6 +47,5 @@ public class Dictionary implements Serializable {
      * }]
      */
     private String itemValues;
-
 
 }

@@ -26,7 +26,7 @@ import java.util.Properties;
 import java.util.Set;
 
 /**
- * @description 网关认证过虑器
+ *  网关认证过虑器
  */
 @Component
 @Slf4j

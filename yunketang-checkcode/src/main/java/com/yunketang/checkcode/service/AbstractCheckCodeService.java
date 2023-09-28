@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * @description 验证码接口
+ *  验证码接口
  */
 @Slf4j
 public abstract class AbstractCheckCodeService implements CheckCodeService {
@@ -28,7 +28,7 @@ public abstract class AbstractCheckCodeService implements CheckCodeService {
      * @param code_length        验证码长度
      * @param keyPrefix          key的前缀
      * @param expire             过期时间
-     * @return com.yunketang.checkcode.service.AbstractCheckCodeService.GenerateResult 生成结果
+     * @return checkcode.service.AbstractCheckCodeService.GenerateResult 生成结果
      * @description 生成验证公用方法
      */
     public GenerateResult generate(CheckCodeParamsDto checkCodeParamsDto, Integer code_length, String keyPrefix, Integer expire) {

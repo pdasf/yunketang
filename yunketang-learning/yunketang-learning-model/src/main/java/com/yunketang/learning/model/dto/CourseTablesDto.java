@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.ToString;
 
 /**
- * @description 我的课程表模型类
+ *  课程表模型类
  */
 @Data
 @ToString

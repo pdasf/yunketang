@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.ToString;
 
 /**
- * @description 支付记录dto
+ * 支付记录dto
  */
 @Data
 @ToString

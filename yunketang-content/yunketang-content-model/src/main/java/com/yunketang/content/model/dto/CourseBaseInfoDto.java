@@ -5,8 +5,7 @@ import lombok.Data;
 
 
 /**
- * @version 1.0
- * @description 课程基本信息dto
+ *  课程基本信息dto
  */
 @Data
 public class CourseBaseInfoDto extends CourseBase {

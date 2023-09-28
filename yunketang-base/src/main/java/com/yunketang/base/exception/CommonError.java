@@ -2,7 +2,7 @@ package com.yunketang.base.exception;
 
 
 /**
- * @description 通用错误信息
+ *  通用错误信息
  */
 public enum CommonError {
     UNKOWN_ERROR("执行过程异常，请重试"),

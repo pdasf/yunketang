@@ -3,7 +3,7 @@ package com.yunketang.checkcode.model;
 import lombok.Data;
 
 /**
- * @description 验证码生成参数类
+ *  验证码生成参数类
  */
 @Data
 public class CheckCodeParamsDto {

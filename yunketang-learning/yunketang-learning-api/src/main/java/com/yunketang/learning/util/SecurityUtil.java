@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * @description 用户身份信息获取工具类
+ * 用户身份信息获取工具类
  */
 @Slf4j
 public class SecurityUtil {

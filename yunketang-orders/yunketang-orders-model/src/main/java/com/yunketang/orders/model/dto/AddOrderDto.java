@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.ToString;
 
 /**
- * @description 创建商品订单
+ * 创建商品订单
  */
 @Data
 @ToString

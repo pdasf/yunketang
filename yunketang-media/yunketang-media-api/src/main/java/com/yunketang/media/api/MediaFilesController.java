@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 /**
- * @description 媒资文件管理接口
+ *  媒资文件管理接口
  */
 @Api(value = "媒资文件管理接口", tags = "媒资文件管理接口")
 @RestController

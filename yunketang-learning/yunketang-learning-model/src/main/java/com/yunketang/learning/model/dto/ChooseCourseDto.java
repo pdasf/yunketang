@@ -4,9 +4,6 @@ import com.yunketang.learning.model.po.ChooseCourse;
 import lombok.Data;
 import lombok.ToString;
 
-/**
- * @description TODO
- */
 @Data
 @ToString
 public class ChooseCourseDto extends ChooseCourse {

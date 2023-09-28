@@ -2,17 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yunketang.system.mapper.DictionaryMapper">
 
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.yunketang.system.model.po.Dictionary">
-        <id column="id" property="id" />
-        <result column="name" property="name" />
-        <result column="code" property="code" />
-        <result column="item_values" property="itemValues" />
-    </resultMap>
+    <select id="list" resultType="com.yunketang.system.model.po.Dictionary">
+        select * from dictionary
+    </select>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        id, name, code, item_values
-    </sql>
+    <select id="getByCode" resultType="com.yunketang.system.model.po.Dictionary">
+        select * from dictionary where code = #{code}
+    </select>
 
 </mapper>

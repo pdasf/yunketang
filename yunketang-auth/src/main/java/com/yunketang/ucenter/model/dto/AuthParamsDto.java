@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @description 统一认证入口后统一提交的数据
+ *  统一认证入口后统一提交的数据
  */
 @Data
 public class AuthParamsDto {

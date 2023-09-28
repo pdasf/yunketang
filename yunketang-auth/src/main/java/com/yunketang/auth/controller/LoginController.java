@@ -12,7 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @description 测试controller
+ *  测试controller
  */
 @Slf4j
 @RestController

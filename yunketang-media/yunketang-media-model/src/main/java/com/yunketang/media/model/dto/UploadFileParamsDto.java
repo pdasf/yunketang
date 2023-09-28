@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.ToString;
 
 /**
- * @description 上传普通文件请求参数
+ *  上传普通文件请求参数
  */
 @Data
 @ToString

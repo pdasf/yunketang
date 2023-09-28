@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import java.util.Random;
 
 /**
- * @description 数字字母生成器
+ * 数字字母生成器
  */
 @Component("NumberLetterCheckCodeGenerator")
 public class NumberLetterCheckCodeGenerator implements CheckCodeService.CheckCodeGenerator {

@@ -48,7 +48,7 @@ public class PayNotifyConfig implements ApplicationContextAware {
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         // 获取RabbitTemplate
         RabbitTemplate rabbitTemplate = applicationContext.getBean(RabbitTemplate.class);
-        //消息处理service
+        // 消息处理service
         MqMessageService mqMessageService = applicationContext.getBean(MqMessageService.class);
         // 设置ReturnCallback
         rabbitTemplate.setReturnCallback((message, replyCode, replyText, exchange, routingKey) -> {

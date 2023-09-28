@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
- * @description TODO
+ * 远程调用媒资管理服务客户端
  */
 @Slf4j
 @Component

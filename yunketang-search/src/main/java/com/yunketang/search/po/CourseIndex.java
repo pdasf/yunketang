@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 课程索引信息
+ * 索引中存储课程信息文档形式
  */
 @Data
 public class CourseIndex implements Serializable {

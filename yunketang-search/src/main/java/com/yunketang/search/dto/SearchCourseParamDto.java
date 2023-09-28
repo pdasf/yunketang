@@ -3,9 +3,6 @@ package com.yunketang.search.dto;
 import lombok.Data;
 import lombok.ToString;
 
-/**
- * @description 搜索课程参数dtl
- */
 @Data
 @ToString
 public class SearchCourseParamDto {

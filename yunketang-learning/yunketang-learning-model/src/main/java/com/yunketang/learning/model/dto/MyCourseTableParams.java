@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.ToString;
 
 /**
- * @description 我的课程查询条件
+ * 课程查询条件
  */
 @Data
 @ToString

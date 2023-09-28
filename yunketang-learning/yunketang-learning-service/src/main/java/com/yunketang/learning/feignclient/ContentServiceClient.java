@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * @description 内容管理远程接口
+ * 内容管理远程接口
  */
 @FeignClient(value = "content-api", fallbackFactory = ContentServiceClientFallbackFactory.class)
 public interface ContentServiceClient {

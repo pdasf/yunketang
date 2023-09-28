@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 /**
- * @description 课程索引管理接口实现
+ *  课程索引管理接口实现
  */
 @Slf4j
 @Service
@@ -51,7 +51,6 @@ public class IndexServiceImpl implements IndexService {
 
     @Override
     public Boolean updateCourseIndex(String indexName, String id, Object object) {
-
         String jsonString = JSON.toJSONString(object);
         UpdateRequest updateRequest = new UpdateRequest(indexName, id);
         updateRequest.doc(jsonString, XContentType.JSON);
@@ -60,7 +59,6 @@ public class IndexServiceImpl implements IndexService {
             updateResponse = client.update(updateRequest, RequestOptions.DEFAULT);
         } catch (IOException e) {
             log.error("更新索引出错:{}", e.getMessage());
-            e.printStackTrace();
             YunketangException.cast("更新索引出错");
         }
         DocWriteResponse.Result result = updateResponse.getResult();
@@ -79,7 +77,6 @@ public class IndexServiceImpl implements IndexService {
             deleteResponse = client.delete(deleteRequest, RequestOptions.DEFAULT);
         } catch (IOException e) {
             log.error("删除索引出错:{}", e.getMessage());
-            e.printStackTrace();
             YunketangException.cast("删除索引出错");
         }
         //获取响应结果
