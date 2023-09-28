@@ -151,7 +151,6 @@ public class CourseSearchServiceImpl implements CourseSearchService {
         return pageResult;
     }
 
-
     private void buildAggregation(SearchRequest request) {
         request.source().aggregation(AggregationBuilders
                 .terms("mtAgg")
