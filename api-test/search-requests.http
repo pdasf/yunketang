@@ -58,4 +58,4 @@ Content-Type: application/json
 DELETE localhost:63080/search/index/course/delete/103
 
 ### 搜索课程文档测试
-GET localhost:63080/search/course/list?keywords=Java编程思想&mt=1-3
+GET localhost:63080/search/course/list?keywords=Java编程思想
