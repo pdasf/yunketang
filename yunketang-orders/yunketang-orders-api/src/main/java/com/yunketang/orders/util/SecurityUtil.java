@@ -16,13 +16,13 @@ public class SecurityUtil {
 
     public static User getUser() {
         try {
+            // SecurityContextHolder 工具类用于获取当前用户得安全上下文信息，基于ThreadLocal实现
             Object principalObj = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             if (principalObj instanceof String) {
                 //取出用户身份信息
                 String principal = principalObj.toString();
                 //将json转成对象
-                User user = JSON.parseObject(principal, User.class);
-                return user;
+                return JSON.parseObject(principal, User.class);
             }
         } catch (Exception e) {
             log.error("获取当前登录用户身份出错:{}", e.getMessage());
@@ -46,8 +46,11 @@ public class SecurityUtil {
         private String salt;
 
         private String name;
+
         private String nickname;
+
         private String wxUnionid;
+
         private String companyId;
         /**
          * 头像
@@ -74,9 +77,5 @@ public class SecurityUtil {
         private LocalDateTime createTime;
 
         private LocalDateTime updateTime;
-
-
     }
-
-
 }

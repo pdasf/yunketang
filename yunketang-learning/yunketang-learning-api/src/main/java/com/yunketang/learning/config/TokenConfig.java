@@ -6,15 +6,11 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
-/**
- * @author Administrator
- * @version 1.0
- **/
 @Configuration
 public class TokenConfig {
 
     //jwt签名密钥,与认证服务保持一致
-    private String SIGNING_KEY = "mq123";
+    private final String SIGNING_KEY = "mq123";
 
     @Bean
     public TokenStore tokenStore() {
@@ -28,10 +24,4 @@ public class TokenConfig {
         converter.setSigningKey(SIGNING_KEY);
         return converter;
     }
-
-   /* @Bean
-    public TokenStore tokenStore() {
-        //使用内存存储令牌（普通令牌）
-        return new InMemoryTokenStore();
-    }*/
 }

@@ -15,10 +15,11 @@ import java.util.Arrays;
 @Configuration
 public class TokenConfig {
 
-    private String SIGNING_KEY = "mq123";
+    private final String SIGNING_KEY = "mq123";
 
     @Autowired
     TokenStore tokenStore;
+
     @Autowired
     private JwtAccessTokenConverter accessTokenConverter;
 
@@ -49,5 +50,4 @@ public class TokenConfig {
         service.setRefreshTokenValiditySeconds(259200); // 刷新令牌默认有效期3天
         return service;
     }
-
 }

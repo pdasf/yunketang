@@ -8,9 +8,6 @@ import java.time.LocalDateTime;
 
 /**
  * 课程基本信息
- * </p>
- *
- * @author cyborg2077
  */
 @Data
 @TableName("course_base")

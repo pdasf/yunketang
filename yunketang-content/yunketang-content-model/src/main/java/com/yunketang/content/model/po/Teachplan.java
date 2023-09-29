@@ -9,9 +9,6 @@ import java.time.LocalDateTime;
 
 /**
  * 课程计划
- * </p>
- *
- * @author cyborg2077
  */
 @Data
 @TableName("teachplan")

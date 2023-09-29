@@ -8,7 +8,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 @Configuration
 public class TokenConfig {
-    private String SIGNING_KEY = "mq123";
+    private final String SIGNING_KEY = "mq123";
 
     @Bean
     public JwtAccessTokenConverter accessTokenConverter() {

@@ -5,9 +5,6 @@ import com.yunketang.content.model.po.TeachplanMedia;
 
 /**
  * Mapper 接口
- * </p>
- *
- * @author cyborg2077
  */
 public interface TeachplanMediaMapper extends BaseMapper<TeachplanMedia> {
 

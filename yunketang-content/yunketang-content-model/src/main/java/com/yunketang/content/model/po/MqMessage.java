@@ -8,11 +8,6 @@ import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/**
- * </p>
- *
- * @author cyborg2077
- */
 @Data
 @TableName("mq_message")
 public class MqMessage implements Serializable {

@@ -6,13 +6,10 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
-/**
- * @author Administrator
- **/
 @Configuration
 public class TokenConfig {
 
-    String SIGNING_KEY = "mq123";
+    private final String SIGNING_KEY = "mq123";
 
     @Bean
     public TokenStore tokenStore() {
