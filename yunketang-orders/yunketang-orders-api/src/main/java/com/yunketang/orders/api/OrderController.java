@@ -30,9 +30,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+@Slf4j
 @Api(value = "订单支付接口", tags = "订单支付接口")
 @RestController
-@Slf4j
 public class OrderController {
     @Value("${pay.alipay.APP_ID}")
     String APP_ID;
