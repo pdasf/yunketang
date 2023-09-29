@@ -36,6 +36,7 @@ import java.util.Map;
 public class OrderController {
     @Value("${pay.alipay.APP_ID}")
     String APP_ID;
+
     @Value("${pay.alipay.APP_PRIVATE_KEY}")
     String APP_PRIVATE_KEY;
 
