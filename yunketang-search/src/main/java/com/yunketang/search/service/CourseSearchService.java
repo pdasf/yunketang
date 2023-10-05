@@ -14,7 +14,6 @@ public interface CourseSearchService {
      *
      * @param pageParams           分页参数
      * @param searchCourseParamDto 搜索条件
-     * @return
      */
     SearchPageResultDto<CourseIndex> queryCoursePubIndex(PageParams pageParams, SearchCourseParamDto searchCourseParamDto);
 }

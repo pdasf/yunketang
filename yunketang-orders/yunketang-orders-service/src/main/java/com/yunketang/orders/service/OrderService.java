@@ -20,7 +20,6 @@ public interface OrderService {
      * 查询支付交易记录
      *
      * @param payNo 交易记录号
-     * @return
      */
     PayRecord getPayRecordByPayNo(String payNo);
 

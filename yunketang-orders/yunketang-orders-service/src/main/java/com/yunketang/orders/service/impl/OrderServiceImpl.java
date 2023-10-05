@@ -55,35 +55,37 @@ public class OrderServiceImpl implements OrderService {
     String ALIPAY_PUBLIC_KEY;
 
     @Autowired
-    OrdersMapper xcOrdersMapper;
+    OrdersMapper ordersMapper;
 
     @Autowired
-    PayRecordMapper xcPayRecordMapper;
+    PayRecordMapper payRecordMapper;
 
     @Autowired
-    OrdersGoodsMapper xcOrdersGoodsMapper;
+    OrdersGoodsMapper ordersGoodsMapper;
 
     @Autowired
     MqMessageService mqMessageService;
 
     @Autowired
+    OrderServiceImpl orderServiceImpl;
+
+    @Autowired
     RabbitTemplate rabbitTemplate;
 
     @Value("${pay.qrcodeurl}")
-    String qrcodeurl;
+    String qrCodeUrl;
 
     @Override
     public PayRecordDto createOrder(String userId, AddOrderDto addOrderDto) {
         // 1. 添加商品订单
-        Orders orders = saveOrders(userId, addOrderDto);
-
+        Orders orders = orderServiceImpl.saveOrders(userId, addOrderDto);
         // 2. 添加支付交易记录
         PayRecord payRecord = createPayRecord(orders);
         // 3. 生成二维码
         String qrCode = null;
         try {
-            qrcodeurl = String.format(qrcodeurl, payRecord.getPayNo());
-            qrCode = new QRCodeUtil().createQRCode(qrcodeurl, 200, 200);
+            qrCodeUrl = String.format(qrCodeUrl, payRecord.getPayNo());
+            qrCode = new QRCodeUtil().createQRCode(qrCodeUrl, 200, 200);
         } catch (IOException e) {
             YunketangException.cast("生成二维码出错");
         }
@@ -95,7 +97,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public PayRecord getPayRecordByPayNo(String payNo) {
-        return xcPayRecordMapper.selectOne(new LambdaQueryWrapper<PayRecord>().eq(PayRecord::getPayNo, payNo));
+        return payRecordMapper.selectOne(new LambdaQueryWrapper<PayRecord>().eq(PayRecord::getPayNo, payNo));
     }
 
     @Override
@@ -131,7 +133,7 @@ public class OrderServiceImpl implements OrderService {
                 YunketangException.cast("请求支付查询查询失败");
             }
         } catch (AlipayApiException e) {
-            log.error("请求支付宝查询支付结果异常:{}", e.toString(), e);
+            log.error("请求支付宝查询支付结果异常:{}", e, e);
             YunketangException.cast("请求支付查询查询失败");
         }
 
@@ -167,7 +169,7 @@ public class OrderServiceImpl implements OrderService {
         if (payRecord == null) {
             YunketangException.cast("未找到支付记录");
         }
-        Orders order = xcOrdersMapper.selectById(payRecord.getOrderId());
+        Orders order = ordersMapper.selectById(payRecord.getOrderId());
         if (order == null) {
             YunketangException.cast("找不到相关联的订单");
         }
@@ -185,13 +187,13 @@ public class OrderServiceImpl implements OrderService {
             payRecord.setOutPayNo(payStatusDto.getTrade_no());
             payRecord.setOutPayChannel("Alipay");
             payRecord.setPaySuccessTime(LocalDateTime.now());
-            int updateRecord = xcPayRecordMapper.updateById(payRecord);
+            int updateRecord = payRecordMapper.updateById(payRecord);
             if (updateRecord <= 0) {
                 YunketangException.cast("更新支付交易表失败");
             }
             // 更新订单表
             order.setStatus("600002");
-            int updateOrder = xcOrdersMapper.updateById(order);
+            int updateOrder = ordersMapper.updateById(order);
             if (updateOrder <= 0) {
                 log.debug("更新订单表失败");
                 YunketangException.cast("更新订单表失败");
@@ -233,7 +235,6 @@ public class OrderServiceImpl implements OrderService {
      *
      * @param userId      用户id
      * @param addOrderDto 选课信息
-     * @return
      */
     @Transactional
     public Orders saveOrders(String userId, AddOrderDto addOrderDto) {
@@ -249,17 +250,17 @@ public class OrderServiceImpl implements OrderService {
         order.setCreateDate(LocalDateTime.now());
         order.setUserId(userId);
         order.setStatus("600001");
-        int insert = xcOrdersMapper.insert(order);
+        int insert = ordersMapper.insert(order);
         if (insert <= 0) {
             YunketangException.cast("插入订单记录失败");
         }
         // 3. 插入订单明细表
         Long orderId = order.getId();
         String orderDetail = addOrderDto.getOrderDetail();
-        List<OrdersGoods> xcOrdersGoodsList = JSON.parseArray(orderDetail, OrdersGoods.class);
-        xcOrdersGoodsList.forEach(goods -> {
+        List<OrdersGoods> ordersGoodsList = JSON.parseArray(orderDetail, OrdersGoods.class);
+        ordersGoodsList.forEach(goods -> {
             goods.setOrderId(orderId);
-            int insert1 = xcOrdersGoodsMapper.insert(goods);
+            int insert1 = ordersGoodsMapper.insert(goods);
             if (insert1 <= 0) {
                 YunketangException.cast("插入订单明细失败");
             }
@@ -271,10 +272,9 @@ public class OrderServiceImpl implements OrderService {
      * 根据业务id查询订单
      *
      * @param businessId 业务id是选课记录表中的主键
-     * @return
      */
     public Orders getOrderByBusinessId(String businessId) {
-        return xcOrdersMapper.selectOne(new LambdaQueryWrapper<Orders>().eq(Orders::getOutBusinessId, businessId));
+        return ordersMapper.selectOne(new LambdaQueryWrapper<Orders>().eq(Orders::getOutBusinessId, businessId));
     }
 
     public PayRecord createPayRecord(Orders orders) {
@@ -293,7 +293,7 @@ public class OrderServiceImpl implements OrderService {
         payRecord.setCreateDate(LocalDateTime.now());
         payRecord.setStatus("601001");
         payRecord.setUserId(orders.getUserId());
-        int insert = xcPayRecordMapper.insert(payRecord);
+        int insert = payRecordMapper.insert(payRecord);
         if (insert <= 0) {
             YunketangException.cast("插入支付交易记录失败");
         }

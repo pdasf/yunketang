@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @ToString
-public class SearchPageResultDto<T> extends PageResult {
+public class SearchPageResultDto<T> extends PageResult<T> {
 
     //大分类列表
     List<String> mtList;
