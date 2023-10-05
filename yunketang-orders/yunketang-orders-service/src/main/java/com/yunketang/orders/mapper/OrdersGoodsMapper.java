@@ -1,11 +1,9 @@
 package com.yunketang.orders.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.yunketang.orders.model.po.OrdersGoods;
+import org.apache.ibatis.annotations.Mapper;
 
-/**
- * Mapper 接口
- */
-public interface OrdersGoodsMapper extends BaseMapper<OrdersGoods> {
-
+@Mapper
+public interface OrdersGoodsMapper{
+    int insert(OrdersGoods goods);
 }
