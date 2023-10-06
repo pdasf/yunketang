@@ -13,6 +13,10 @@ spring:
         group: yunketang-project
         file-extension: yaml
         refresh-enabled: true
+        extension-configs:
+          - data-id: orders-service-${spring.profiles.active}.yaml
+            group: yunketang-project
+            refresh: true
         shared-configs:
           - data-id: swagger-${spring.profiles.active}.yaml
             group: yunketang-common
