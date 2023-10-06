@@ -19,6 +19,6 @@ public class DaoAuthenticationProviderCustom extends DaoAuthenticationProvider {
     // 屏蔽密码对比，因为不是所有的认证方式都需要校验密码
     @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
-        // 里面啥也不写就不会校验密码了
+
     }
 }

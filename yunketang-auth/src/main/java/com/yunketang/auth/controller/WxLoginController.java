@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.io.IOException;
-
 @Slf4j
 @Controller
 public class WxLoginController {
@@ -16,7 +14,7 @@ public class WxLoginController {
     WxAuthServiceImpl wxAuthService;
 
     @RequestMapping("/wxLogin")
-    public String wxLogin(String code, String state) throws IOException {
+    public String wxLogin(String code, String state) {
         log.debug("微信扫码回调,code:{},state:{}", code, state);
         User user = wxAuthService.wxAuth(code);
         if (user == null) {

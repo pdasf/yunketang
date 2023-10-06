@@ -4,10 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.yunketang.ucenter.mapper.UserMapper;
 import com.yunketang.ucenter.mapper.UserRoleMapper;
+import com.yunketang.ucenter.model.po.UserRole;
 import com.yunketang.ucenter.model.dto.AuthParamsDto;
 import com.yunketang.ucenter.model.dto.UserExt;
 import com.yunketang.ucenter.model.po.User;
-import com.yunketang.ucenter.model.po.UserRole;
 import com.yunketang.ucenter.service.AuthService;
 import com.yunketang.ucenter.service.WxAuthService;
 import org.springframework.beans.BeanUtils;
@@ -27,9 +27,9 @@ import java.util.UUID;
 @Service("wx_authservice")
 public class WxAuthServiceImpl implements AuthService, WxAuthService {
     @Autowired
-    UserMapper xcUserMapper;
+    UserMapper userMapper;
     @Autowired
-    UserRoleMapper xcUserRoleMapper;
+    UserRoleMapper userRoleMapper;
 
     @Autowired
     WxAuthServiceImpl wxAuthService;
@@ -66,7 +66,7 @@ public class WxAuthServiceImpl implements AuthService, WxAuthService {
     public UserExt execute(AuthParamsDto authParamsDto) {
         // 账号
         String username = authParamsDto.getUsername();
-        User user = xcUserMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getUsername, username));
+        User user = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getUsername, username));
         if (user == null) {
             throw new RuntimeException("账号不存在");
         }
@@ -111,7 +111,7 @@ public class WxAuthServiceImpl implements AuthService, WxAuthService {
         // 1. 获取用户唯一标识：unionid作为用户的唯一表示
         String unionid = user_info_map.get("unionid");
         // 2. 根据唯一标识，判断数据库是否存在该用户
-        User xcUser = xcUserMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getWxUnionid, unionid));
+        User xcUser = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getWxUnionid, unionid));
         // 2.1 存在，则直接返回
         if (xcUser != null) {
             return xcUser;
@@ -132,14 +132,14 @@ public class WxAuthServiceImpl implements AuthService, WxAuthService {
         xcUser.setStatus("1");
         xcUser.setCreateTime(LocalDateTime.now());
         // 2.5 添加到数据库
-        xcUserMapper.insert(xcUser);
+        userMapper.insert(xcUser);
         // 3. 添加用户信息到用户角色表
         UserRole xcUserRole = new UserRole();
         xcUserRole.setId(uuid);
         xcUserRole.setUserId(uuid);
         xcUserRole.setRoleId("17");
         xcUserRole.setCreateTime(LocalDateTime.now());
-        xcUserRoleMapper.insert(xcUserRole);
+        userRoleMapper.insert(xcUserRole);
         return xcUser;
     }
 }

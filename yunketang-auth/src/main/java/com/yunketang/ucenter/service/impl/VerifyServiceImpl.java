@@ -3,10 +3,10 @@ package com.yunketang.ucenter.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.yunketang.ucenter.mapper.UserMapper;
 import com.yunketang.ucenter.mapper.UserRoleMapper;
-import com.yunketang.ucenter.model.dto.FindPswDto;
-import com.yunketang.ucenter.model.dto.RegisterDto;
 import com.yunketang.ucenter.model.po.User;
 import com.yunketang.ucenter.model.po.UserRole;
+import com.yunketang.ucenter.model.dto.FindPswDto;
+import com.yunketang.ucenter.model.dto.RegisterDto;
 import com.yunketang.ucenter.service.VerifyService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class VerifyServiceImpl implements VerifyService {
     @Autowired
     UserMapper userMapper;
     @Autowired
-    UserRoleMapper xcUserRoleMapper;
+    UserRoleMapper userRoleMapper;
     @Autowired
     StringRedisTemplate redisTemplate;
 
@@ -99,7 +99,7 @@ public class VerifyServiceImpl implements VerifyService {
         xcUserRole.setUserId(uuid);
         xcUserRole.setRoleId("17");
         xcUserRole.setCreateTime(LocalDateTime.now());
-        int insert1 = xcUserRoleMapper.insert(xcUserRole);
+        int insert1 = userRoleMapper.insert(xcUserRole);
         if (insert1 <= 0) {
             throw new RuntimeException("新增用户角色信息失败");
         }

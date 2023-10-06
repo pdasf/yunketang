@@ -34,8 +34,8 @@ public class LoginController {
     @RequestMapping("/user/{id}")
 
     public User getuser(@PathVariable("id") String id) {
-        User xcUser = userMapper.selectById(id);
-        return xcUser;
+        User user = userMapper.selectById(id);
+        return user;
     }
 
     @RequestMapping("/r/r1")
@@ -49,7 +49,6 @@ public class LoginController {
     public String r2() {
         return "访问r2资源";
     }
-
 
     @ApiOperation(value = "找回密码", tags = "找回密码")
     @PostMapping("/findpassword")

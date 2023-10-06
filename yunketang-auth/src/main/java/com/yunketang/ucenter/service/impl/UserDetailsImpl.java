@@ -3,9 +3,9 @@ package com.yunketang.ucenter.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.yunketang.ucenter.mapper.MenuMapper;
 import com.yunketang.ucenter.mapper.UserMapper;
+import com.yunketang.ucenter.model.po.Menu;
 import com.yunketang.ucenter.model.dto.AuthParamsDto;
 import com.yunketang.ucenter.model.dto.UserExt;
-import com.yunketang.ucenter.model.po.Menu;
 import com.yunketang.ucenter.service.AuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +23,9 @@ import java.util.List;
 @Slf4j
 public class UserDetailsImpl implements UserDetailsService {
     @Autowired
-    UserMapper xcUserMapper;
+    UserMapper userMapper;
     @Autowired
-    MenuMapper xcMenuMapper;
+    MenuMapper menuMapper;
 
     @Autowired
     ApplicationContext applicationContext;
@@ -56,7 +56,7 @@ public class UserDetailsImpl implements UserDetailsService {
         // 获取用户id
         String userId = user.getId();
         // 根据用户id查询用户权限
-        List<Menu> xcMenus = xcMenuMapper.selectPermissionByUserId(userId);
+        List<Menu> xcMenus = menuMapper.selectPermissionByUserId(userId);
         ArrayList<String> permissions = new ArrayList<>();
         // 没权限，给一个默认的
         if (xcMenus.isEmpty()) {

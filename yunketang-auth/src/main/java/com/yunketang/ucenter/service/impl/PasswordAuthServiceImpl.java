@@ -1,11 +1,11 @@
 package com.yunketang.ucenter.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.yunketang.ucenter.feignclient.CheckCodeClient;
 import com.yunketang.ucenter.mapper.UserMapper;
+import com.yunketang.ucenter.model.po.User;
+import com.yunketang.ucenter.feignclient.CheckCodeClient;
 import com.yunketang.ucenter.model.dto.AuthParamsDto;
 import com.yunketang.ucenter.model.dto.UserExt;
-import com.yunketang.ucenter.model.po.User;
 import com.yunketang.ucenter.service.AuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 public class PasswordAuthServiceImpl implements AuthService {
 
     @Autowired
-    UserMapper xcUserMapper;
+    UserMapper userMapper;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -45,7 +45,7 @@ public class PasswordAuthServiceImpl implements AuthService {
         // 1. 获取账号
         String username = authParamsDto.getUsername();
         // 2. 根据账号去数据库中查询是否存在
-        User xcUser = xcUserMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getUsername, username));
+        User xcUser = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getUsername, username));
         // 3. 不存在抛异常
         if (xcUser == null) {
             throw new RuntimeException("账号不存在");
