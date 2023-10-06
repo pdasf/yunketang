@@ -11,18 +11,5 @@ Content-Type: application/json
   "outBusinessId" : "9"
 }
 
-### 扫码下单接口
-GET http://localhost:63030/orders/requestpay
-Content-Type: application/json
-
-{
-  "totalPrice" : 1,
-  "orderType" : "2022-10-04 14:04:18",
-  "orderName" : "测试课程01",
-  "orderDescrip" : "购买课程:测试课程01",
-  "orderDetail" : [{"goodsId":2,"goodsType":"60201","goodsName":"测试课程01","goodsPrice":1}],
-  "outBusinessId" : "10"
-}
-
 ### 查询支付结果
-GET localhost:63030/orders/payresult?payNo=1637308408214769664
+GET localhost:63030/orders/payresult?payNo=1577239361225244672

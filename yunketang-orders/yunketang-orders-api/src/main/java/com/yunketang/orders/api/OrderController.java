@@ -88,7 +88,7 @@ public class OrderController {
         response.getWriter().flush();
     }
 
-    @ApiOperation("支付结果通知")
+    @ApiOperation("支付结果回调接口")
     @PostMapping("/paynotify")
     public void paynotify(HttpServletRequest request, HttpServletResponse response)
             throws IOException, AlipayApiException {
