@@ -121,7 +121,8 @@ public class OrderServiceImpl implements OrderService {
     public PayStatusDto queryPayResultFromAlipay(String payNo) {
 
         //========请求支付宝查询支付结果=============
-        AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.URL, APP_ID, APP_PRIVATE_KEY, "json", AlipayConfig.CHARSET, ALIPAY_PUBLIC_KEY, AlipayConfig.SIGNTYPE); //获得初始化的AlipayClient
+        AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.URL, APP_ID, APP_PRIVATE_KEY, "json",
+                AlipayConfig.CHARSET, ALIPAY_PUBLIC_KEY, AlipayConfig.SIGNTYPE); //获得初始化的AlipayClient
         AlipayTradeQueryRequest request = new AlipayTradeQueryRequest();
         JSONObject bizContent = new JSONObject();
         bizContent.put("out_trade_no", payNo);
@@ -161,6 +162,7 @@ public class OrderServiceImpl implements OrderService {
      *
      * @param payStatusDto 支付结果信息
      */
+    @Override
     public void saveAlipayStatus(PayStatusDto payStatusDto) {
         // 1. 获取支付流水号
         String payNo = payStatusDto.getOut_trade_no();
@@ -200,7 +202,8 @@ public class OrderServiceImpl implements OrderService {
             }
         }
         // 4. 保存消息记录，参数1：支付结果类型通知；参数2：业务id；参数3：业务类型
-        MqMessage mqMessage = mqMessageService.addMessage("payresult_notify", order.getOutBusinessId(), order.getOrderType(), null);
+        MqMessage mqMessage = mqMessageService.addMessage("payresult_notify",
+                order.getOutBusinessId(), order.getOrderType(), null);
         // 5. 通知消息
         notifyPayResult(mqMessage);
     }
@@ -210,7 +213,8 @@ public class OrderServiceImpl implements OrderService {
         // 1. 将消息体转为Json
         String jsonMsg = JSON.toJSONString(mqMessage);
         // 2. 设消息的持久化方式为PERSISTENT，即消息会被持久化到磁盘上，确保即使在RabbitMQ服务器重启后也能够恢复消息。
-        Message msgObj = MessageBuilder.withBody(jsonMsg.getBytes()).setDeliveryMode(MessageDeliveryMode.PERSISTENT).build();
+        Message msgObj = MessageBuilder.withBody(jsonMsg.getBytes())
+                .setDeliveryMode(MessageDeliveryMode.PERSISTENT).build();
         // 3. 封装CorrelationData，
         CorrelationData correlationData = new CorrelationData(mqMessage.getId().toString());
         correlationData.getFuture().addCallback(result -> {
@@ -232,14 +236,12 @@ public class OrderServiceImpl implements OrderService {
 
     /**
      * 保存订单信息，保存订单表和订单明细表，需要做幂等性判断
-     *
-     * @param userId      用户id
-     * @param addOrderDto 选课信息
      */
     @Transactional
     public Orders saveOrders(String userId, AddOrderDto addOrderDto) {
         // 1. 幂等性判断
-        Orders order = getOrderByBusinessId(addOrderDto.getOutBusinessId());
+        Orders order = ordersMapper.selectOne(new LambdaQueryWrapper<Orders>()
+                .eq(Orders::getOutBusinessId, addOrderDto.getOutBusinessId()));
         if (order != null) {
             return order;
         }
@@ -269,30 +271,24 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * 根据业务id查询订单
-     *
-     * @param businessId 业务id是选课记录表中的主键
+     * 添加支付交易记录
      */
-    public Orders getOrderByBusinessId(String businessId) {
-        return ordersMapper.selectOne(new LambdaQueryWrapper<Orders>().eq(Orders::getOutBusinessId, businessId));
-    }
-
-    public PayRecord createPayRecord(Orders orders) {
-        if (orders == null) {
+    public PayRecord createPayRecord(Orders order) {
+        if (order == null) {
             YunketangException.cast("订单不存在");
         }
-        if ("600002".equals(orders.getStatus())) {
+        if ("600002".equals(order.getStatus())) {
             YunketangException.cast("订单已支付");
         }
         PayRecord payRecord = new PayRecord();
         payRecord.setPayNo(IdWorkerUtils.getInstance().nextId());
-        payRecord.setOrderId(orders.getId());
-        payRecord.setOrderName(orders.getOrderName());
-        payRecord.setTotalPrice(orders.getTotalPrice());
+        payRecord.setOrderId(order.getId());
+        payRecord.setOrderName(order.getOrderName());
+        payRecord.setTotalPrice(order.getTotalPrice());
         payRecord.setCurrency("CNY");
         payRecord.setCreateDate(LocalDateTime.now());
         payRecord.setStatus("601001");
-        payRecord.setUserId(orders.getUserId());
+        payRecord.setUserId(order.getUserId());
         int insert = payRecordMapper.insert(payRecord);
         if (insert <= 0) {
             YunketangException.cast("插入支付交易记录失败");
