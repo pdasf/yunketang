@@ -12,7 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
- *  测试controller
+ * 测试controller
  */
 @Slf4j
 @RestController
@@ -32,7 +32,6 @@ public class LoginController {
 
 
     @RequestMapping("/user/{id}")
-
     public User getuser(@PathVariable("id") String id) {
         User user = userMapper.selectById(id);
         return user;

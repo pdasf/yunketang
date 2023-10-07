@@ -53,8 +53,7 @@ public class WxAuthServiceImpl implements AuthService, WxAuthService {
         Map<String, String> user_info_map = getUserInfo(accessToken, openid);
 
         // 3. 添加用户信息到数据库
-        User xcUser = wxAuthService.addWxUser(user_info_map);
-        return xcUser;
+        return wxAuthService.addWxUser(user_info_map);
     }
 
     /**
@@ -70,9 +69,9 @@ public class WxAuthServiceImpl implements AuthService, WxAuthService {
         if (user == null) {
             throw new RuntimeException("账号不存在");
         }
-        UserExt xcUserExt = new UserExt();
-        BeanUtils.copyProperties(user, xcUserExt);
-        return xcUserExt;
+        UserExt userExt = new UserExt();
+        BeanUtils.copyProperties(user, userExt);
+        return userExt;
     }
 
     private Map<String, String> getAccess_token(String code) {
@@ -106,40 +105,39 @@ public class WxAuthServiceImpl implements AuthService, WxAuthService {
     }
 
     @Transactional
-
     public User addWxUser(Map<String, String> user_info_map) {
         // 1. 获取用户唯一标识：unionid作为用户的唯一表示
         String unionid = user_info_map.get("unionid");
         // 2. 根据唯一标识，判断数据库是否存在该用户
-        User xcUser = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getWxUnionid, unionid));
+        User user = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getWxUnionid, unionid));
         // 2.1 存在，则直接返回
-        if (xcUser != null) {
-            return xcUser;
+        if (user != null) {
+            return user;
         }
         // 2.2 不存在，新增
-        xcUser = new User();
+        user = new User();
         // 2.3 设置主键
         String uuid = UUID.randomUUID().toString();
-        xcUser.setId(uuid);
+        user.setId(uuid);
         // 2.4 设置其他数据库非空约束的属性
-        xcUser.setUsername(unionid);
-        xcUser.setPassword(unionid);
-        xcUser.setWxUnionid(unionid);
-        xcUser.setNickname(user_info_map.get("nickname"));
-        xcUser.setUserpic(user_info_map.get("headimgurl"));
-        xcUser.setName(user_info_map.get("nickname"));
-        xcUser.setUtype("101001");  // 学生类型
-        xcUser.setStatus("1");
-        xcUser.setCreateTime(LocalDateTime.now());
+        user.setUsername(unionid);
+        user.setPassword(unionid);
+        user.setWxUnionid(unionid);
+        user.setNickname(user_info_map.get("nickname"));
+        user.setUserpic(user_info_map.get("headimgurl"));
+        user.setName(user_info_map.get("nickname"));
+        user.setUtype("101001");  // 学生类型
+        user.setStatus("1");
+        user.setCreateTime(LocalDateTime.now());
         // 2.5 添加到数据库
-        userMapper.insert(xcUser);
+        userMapper.insert(user);
         // 3. 添加用户信息到用户角色表
-        UserRole xcUserRole = new UserRole();
-        xcUserRole.setId(uuid);
-        xcUserRole.setUserId(uuid);
-        xcUserRole.setRoleId("17");
-        xcUserRole.setCreateTime(LocalDateTime.now());
-        userRoleMapper.insert(xcUserRole);
-        return xcUser;
+        UserRole userRole = new UserRole();
+        userRole.setId(uuid);
+        userRole.setUserId(uuid);
+        userRole.setRoleId("17");
+        userRole.setCreateTime(LocalDateTime.now());
+        userRoleMapper.insert(userRole);
+        return user;
     }
 }

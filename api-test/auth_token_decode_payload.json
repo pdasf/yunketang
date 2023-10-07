@@ -1,0 +1,24 @@
+{
+  "aud": [
+    "yunketang"
+  ],
+  "user_name": "{\"companyId\":\"1232141425\",\"createTime\":\"2023-09-28T08:32:03\",\"id\":\"52\",\"name\":\"Kiki\",\"permissions\":[\"teachmanager\",\"teachmanager_course\",\"teachmanager_course_add\",\"teachmanager_course_del\",\"teachmanager_course_market\",\"teachmanager_course_base\",\"teachmanager_course_plan\",\"teachmanager_course_publish\",\"teachmanager_course_list\",\"course_find_list\"],\"sex\":\"1\",\"status\":\"\",\"username\":\"Kyle\",\"utype\":\"101002\"}",
+  "scope": [
+    "all"
+  ],
+  "exp": 1728288950,
+  "authorities": [
+    "teachmanager_course_base",
+    "teachmanager_course_del",
+    "teachmanager_course_list",
+    "teachmanager_course_plan",
+    "teachmanager_course",
+    "course_find_list",
+    "teachmanager",
+    "teachmanager_course_market",
+    "teachmanager_course_publish",
+    "teachmanager_course_add"
+  ],
+  "jti": "c8f05aae-0523-4687-9b4c-26a4d18c813c",
+  "client_id": "WebApp"
+}
