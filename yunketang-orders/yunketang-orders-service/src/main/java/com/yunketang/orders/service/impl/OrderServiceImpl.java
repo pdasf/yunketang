@@ -109,7 +109,12 @@ public class OrderServiceImpl implements OrderService {
         // 2. 拿到支付结果，更新支付记录表和订单表的状态为 已支付
         saveAlipayStatus(payStatusDto);
 
-        return null;
+        //3. 返回最新的支付记录信息
+        PayRecord payRecord = getPayRecordByPayNo(payNo);
+        PayRecordDto payRecordDto = new PayRecordDto();
+        BeanUtils.copyProperties(payRecord,payRecordDto);
+
+        return payRecordDto;
     }
 
     /**
@@ -208,26 +213,27 @@ public class OrderServiceImpl implements OrderService {
         notifyPayResult(mqMessage);
     }
 
-    @Override
+    /**
+     * 将支付结果发送到消息队列
+     *
+     * @param mqMessage 待发送的消息
+     */
     public void notifyPayResult(MqMessage mqMessage) {
         // 1. 将消息体转为Json
         String jsonMsg = JSON.toJSONString(mqMessage);
         // 2. 设消息的持久化方式为PERSISTENT，即消息会被持久化到磁盘上，确保即使在RabbitMQ服务器重启后也能够恢复消息。
         Message msgObj = MessageBuilder.withBody(jsonMsg.getBytes())
                 .setDeliveryMode(MessageDeliveryMode.PERSISTENT).build();
-        // 3. 封装CorrelationData，
+        // 3. 封装CorrelationData
         CorrelationData correlationData = new CorrelationData(mqMessage.getId().toString());
         correlationData.getFuture().addCallback(result -> {
-            if (result.isAck()) {
+            if (result != null && result.isAck()) {
                 // 3.1 消息发送成功，删除消息表中的记录
                 log.debug("消息发送成功：{}", jsonMsg);
                 mqMessageService.completed(mqMessage.getId());
-            } else {
-                // 3.2 消息发送失败
-                log.error("消息发送失败，id：{}，原因：{}", mqMessage.getId(), result.getReason());
             }
         }, ex -> {
-            // 3.3 消息异常
+            // 3.2 消息异常
             log.error("消息发送异常，id：{}，原因：{}", mqMessage.getId(), ex.getMessage());
         });
         // 4. 发送消息

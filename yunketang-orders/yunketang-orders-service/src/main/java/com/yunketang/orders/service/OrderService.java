@@ -1,6 +1,5 @@
 package com.yunketang.orders.service;
 
-import com.yunketang.messagesdk.model.po.MqMessage;
 import com.yunketang.orders.model.dto.AddOrderDto;
 import com.yunketang.orders.model.dto.PayRecordDto;
 import com.yunketang.orders.model.dto.PayStatusDto;
@@ -33,10 +32,4 @@ public interface OrderService {
 
     void saveAlipayStatus(PayStatusDto payStatusDto);
 
-    /**
-     * 发送通知结果
-     *
-     * @param mqMessage 消息
-     */
-    void notifyPayResult(MqMessage mqMessage);
 }
