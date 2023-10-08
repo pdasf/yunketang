@@ -51,6 +51,9 @@ public class MediaFileServiceImpl implements MediaFileService {
     MediaProcessMapper mediaProcessMapper;
 
     @Autowired
+    MediaFileServiceImpl mediaFileService;
+
+    @Autowired
     MinioClient minioClient;
 
     @Value("${minio.bucket.files}")
@@ -147,7 +150,6 @@ public class MediaFileServiceImpl implements MediaFileService {
      * 判断文件是否存在
      *
      * @param fileMd5 文件的md5
-     * @return
      */
     @Override
     public RestResponse<Boolean> checkFile(String fileMd5) {
@@ -202,7 +204,6 @@ public class MediaFileServiceImpl implements MediaFileService {
      * @param fileMd5 文件MD5
      * @param chunk   分块序号
      * @param bytes   文件字节
-     * @return
      */
     @Override
     public RestResponse uploadChunk(String fileMd5, int chunk, byte[] bytes) {
@@ -266,7 +267,7 @@ public class MediaFileServiceImpl implements MediaFileService {
             addMediaFilesToMinIO(mergeFile.getAbsolutePath(), video_files, mergeFilePath);
             log.debug("合并文件上传至MinIO完成{}", mergeFile.getAbsolutePath());
             // 将文件信息写入数据库
-            MediaFiles mediaFiles = addMediaFilesToDB(companyId, uploadFileParamsDto, mergeFilePath, fileMd5, video_files);
+            MediaFiles mediaFiles = mediaFileService.addMediaFilesToDB(companyId, uploadFileParamsDto, mergeFilePath, fileMd5, video_files);
             if (mediaFiles == null) {
                 YunketangException.cast("媒资文件入库出错");
             }
@@ -302,10 +303,9 @@ public class MediaFileServiceImpl implements MediaFileService {
      *
      * @param fileMd5   文件MD5
      * @param extension 文件扩展名
-     * @return
      */
     public String getFilePathByMd5(String fileMd5, String extension) {
-        return fileMd5.substring(0, 1) + "/" + fileMd5.substring(1, 2) + "/" + fileMd5 + "/" + fileMd5 + extension;
+        return fileMd5.charAt(0) + "/" + fileMd5.charAt(1) + "/" + fileMd5 + "/" + fileMd5 + extension;
     }
 
     /**
@@ -366,7 +366,6 @@ public class MediaFileServiceImpl implements MediaFileService {
      * @param file       目标文件
      * @param bucket     桶
      * @param objectName 桶内文件路径
-     * @return
      */
     public File downloadFileFromMinio(File file, String bucket, String objectName) {
         try (FileOutputStream fileOutputStream = new FileOutputStream(file);
@@ -385,12 +384,9 @@ public class MediaFileServiceImpl implements MediaFileService {
 
     /**
      * 获取分块文件的目录，例如文件的md5码为  1f2465f， 那么该文件的分块放在 /1/f/1f2465f下，即前两级目录为md5的前两位
-     *
-     * @param fileMd5
-     * @return
      */
     private String getChunkFileFolderPath(String fileMd5) {
-        return fileMd5.substring(0, 1) + "/" + fileMd5.substring(1, 2) + "/" + fileMd5 + "/" + "chunk" + "/";
+        return fileMd5.charAt(0) + "/" + fileMd5.charAt(1) + "/" + fileMd5 + "/" + "chunk" + "/";
     }
 
     /**
@@ -418,7 +414,6 @@ public class MediaFileServiceImpl implements MediaFileService {
      * 根据objectName获取对应的MimeType
      *
      * @param objectName 对象名称
-     * @return
      */
     private static String getContentType(String objectName) {
         String contentType = MediaType.APPLICATION_OCTET_STREAM_VALUE; // 默认content-type为未知二进制流
@@ -443,7 +438,7 @@ public class MediaFileServiceImpl implements MediaFileService {
      * @param day   是否包含日
      */
     private String getFileFolder(boolean year, boolean month, boolean day) {
-        StringBuffer stringBuffer = new StringBuffer();
+        StringBuilder stringBuffer = new StringBuilder();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String dateString = dateFormat.format(new Date());
         String[] split = dateString.split("-");

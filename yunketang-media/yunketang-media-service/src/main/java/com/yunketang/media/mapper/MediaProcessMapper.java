@@ -29,8 +29,8 @@ public interface MediaProcessMapper extends BaseMapper<MediaProcess> {
      * @param id 任务 id
      * @return 更新记录数
      */
-    @Update("update media_process m set m.status='4' " +
-            "where (m.status='1' or m.status='3') and m.fail_count<3 and m.id=#{id}")
+    @Update("update media_process set status='4' " +
+            "where (status='1' or status='3') and fail_count<3 and id=#{id}")
     int startTask(@Param("id") long id);
 
 }

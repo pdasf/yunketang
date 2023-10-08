@@ -46,7 +46,6 @@ public interface MediaFileService {
      * 检查文件是否存在
      *
      * @param fileMd5 文件的md5
-     * @return
      */
     RestResponse<Boolean> checkFile(String fileMd5);
 
@@ -55,7 +54,6 @@ public interface MediaFileService {
      *
      * @param fileMd5    文件的MD5
      * @param chunkIndex 分块序号
-     * @return
      */
     RestResponse<Boolean> checkChunk(String fileMd5, int chunkIndex);
 
@@ -65,7 +63,6 @@ public interface MediaFileService {
      * @param fileMd5 文件MD5
      * @param chunk   分块序号
      * @param bytes   文件字节
-     * @return
      */
     RestResponse uploadChunk(String fileMd5, int chunk, byte[] bytes);
 
@@ -76,7 +73,6 @@ public interface MediaFileService {
      * @param fileMd5             文件MD5
      * @param chunkTotal          分块数量
      * @param uploadFileParamsDto 文件信息
-     * @return
      */
     RestResponse mergeChunks(Long companyId, String fileMd5, int chunkTotal, UploadFileParamsDto uploadFileParamsDto) throws IOException;
 
@@ -88,7 +84,6 @@ public interface MediaFileService {
      * @param file       下载后的文件
      * @param bucket     minio中的桶
      * @param objectName minio中的对象名称
-     * @return
      */
     File downloadFileFromMinio(File file, String bucket, String objectName);
 
@@ -106,7 +101,6 @@ public interface MediaFileService {
      *
      * @param fileMd5   文件md5
      * @param extension 文件后缀名
-     * @return
      */
     String getFilePathByMd5(String fileMd5, String extension);
 }
