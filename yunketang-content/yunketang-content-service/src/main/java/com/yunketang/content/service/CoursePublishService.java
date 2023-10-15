@@ -56,6 +56,14 @@ public interface CoursePublishService {
      */
     Boolean saveCourseIndex(Long courseId);
 
+    /**
+     * 保存课程信息redis缓存
+     *
+     * @param courseId 课程id
+     * @return
+     */
+    Boolean saveCourseCache(Long courseId);
+
     CoursePublish getCoursePublish(Long courseId);
 
     /**

@@ -217,6 +217,21 @@ public class CoursePublishServiceImpl implements CoursePublishService {
     }
 
     @Override
+    public Boolean saveCourseCache(Long courseId) {
+        // 1. 取出课程发布信息
+        CoursePublish coursePublish = coursePublishMapper.selectById(courseId);
+        // 2. 拷贝至课程索引对象
+        CourseIndex courseIndex = new CourseIndex();
+        BeanUtils.copyProperties(coursePublish, courseIndex);
+        // 3. 远程调用搜索服务API，添加课程索引信息
+        Boolean result = searchServiceClient.add(courseIndex);
+        if (!result) {
+            YunketangException.cast("添加Redis缓存失败");
+        }
+        return true;
+    }
+
+    @Override
     public CoursePublish getCoursePublish(Long courseId) {
         return coursePublishMapper.selectById(courseId);
     }
@@ -266,7 +281,6 @@ public class CoursePublishServiceImpl implements CoursePublishService {
             }
         }
     }
-
 
     /**
      * 保存课程发布信息

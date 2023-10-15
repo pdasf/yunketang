@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
-import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Component
@@ -72,10 +71,20 @@ public class CoursePublishTask extends MessageProcessAbstract {
 
     public void saveCourseCache(MqMessage mqMessage, long courseId) {
         log.debug("将课程信息缓存至 redis,课程 id:{}", courseId);
-        try {
-            TimeUnit.SECONDS.sleep(2);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        // 1. 获取消息id
+        Long id = mqMessage.getId();
+        // 2. 获取任务阶段状态
+        MqMessageService mqMessageService = this.getMqMessageService();
+        // 3. 消息幂等性处理
+        int stageThree = mqMessageService.getStageThree(id);
+        if (stageThree > 0) {
+            log.debug("当前阶段为课程信息缓存至 redis，已完成，无需再次处理，任务信息：{}", mqMessage);
+            return;
+        }
+        // 4. 将课程信息缓存至Redis
+        Boolean result = coursePublishService.saveCourseCache(courseId);
+        if (result) {
+            mqMessageService.completedStageThree(id);
         }
     }
 
